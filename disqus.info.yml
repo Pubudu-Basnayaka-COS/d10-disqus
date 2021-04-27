@@ -5,4 +5,4 @@ description: 'Uses the Disqus web service to enhance comments.'
 core: 8.x
 configure: disqus.settings
 dependencies:
-  - field
+  - drupal:field
