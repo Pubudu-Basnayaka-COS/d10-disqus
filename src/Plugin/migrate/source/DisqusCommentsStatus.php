@@ -9,7 +9,8 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  * Disqus comments status.
  *
  * @MigrateSource(
- *   id = "disqus_comments_status"
+ *   id = "disqus_comments_status",
+ *   source_module = "disqus"
  * )
  */
 class DisqusCommentsStatus extends DrupalSqlBase {
