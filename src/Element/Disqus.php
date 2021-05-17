@@ -19,7 +19,7 @@ class Disqus extends RenderElement {
       '#title' => '',
       '#url' => '',
       '#identifier' => '',
-      '#callbacks' => '',
+      '#callbacks' => [],
       '#attributes' => ['id' => 'disqus_thread'],
       '#pre_render' => [
         get_class() . '::generatePlaceholder',
@@ -45,6 +45,7 @@ class Disqus extends RenderElement {
             $element['#title'],
             $element['#url'],
             $element['#identifier'],
+            serialize($element['#callbacks']),
           ],
         ],
         '#create_placeholder' => TRUE,
@@ -57,7 +58,7 @@ class Disqus extends RenderElement {
   /**
    * Post render function of the Disqus element to inject the Disqus JavaScript.
    */
-  public static function displayDisqusComments($title, $url, $identifier) {
+  public static function displayDisqusComments($title, $url, $identifier, $callbacks) {
     $disqus_settings = \Drupal::config('disqus.settings');
     /** @var \Drupal\Core\Render\RendererInterface $renderer */
     $renderer = \Drupal::service('renderer');
@@ -94,13 +95,6 @@ class Disqus extends RenderElement {
       $disqus += \Drupal::service('disqus.manager')->ssoSettings();
     }
 
-    // Check if we want to track new comments in Google Analytics.
-    if ($disqus_settings->get('behavior.disqus_track_newcomment_ga')) {
-      // Add a callback when a new comment is posted.
-      $disqus['callbacks']['onNewComment'][] = 'Drupal.disqus.disqusTrackNewComment';
-      // Attach the js with the callback implementation.
-      $element['#attached']['library'][] = 'disqus/ga';
-    }
     // Pass callbacks on if needed. Callbacks array is two dimensional array
     // with callback type as key on first level and array of JS callbacks on the
     // second level.
@@ -116,10 +110,17 @@ class Disqus extends RenderElement {
     //   ],
     // ];
     // @endcode
-    if (!empty($element['#callbacks'])) {
-      $disqus['callbacks'] = $element['#callbacks'];
+    $callbacks = unserialize($callbacks);
+    if (!empty($callbacks)) {
+      $disqus['callbacks'] = $callbacks;
     }
-
+    // Check if we want to track new comments in Google Analytics.
+    if ($disqus_settings->get('behavior.disqus_track_newcomment_ga')) {
+      // Add a callback when a new comment is posted.
+      $disqus['callbacks']['onNewComment'][] = 'Drupal.disqus.disqusTrackNewComment';
+      // Attach the js with the callback implementation.
+      $element['#attached']['library'][] = 'disqus/ga';
+    }
     // Add the disqus.js and all the settings to process the JavaScript and load
     // Disqus.
     $element['#attached']['library'][] = 'disqus/disqus';
