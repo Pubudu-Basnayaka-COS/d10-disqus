@@ -67,7 +67,7 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
    */
   public function getFields($entity_type_id) {
     $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
-    if (!$entity_type->isSubclassOf('\Drupal\Core\Entity\ContentEntityInterface')) {
+    if (!$entity_type->entityClassImplements('\Drupal\Core\Entity\ContentEntityInterface')) {
       return [];
     }
 

@@ -34,10 +34,10 @@ function disqus_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.disqus':
       $output = '<p>' . t('Uses the <a href=":disqus">Disqus</a> comment system to enhance comments.', array(
-        ':disqus' => URL::fromUri('http://disqus.com/')->toString(),
+        ':disqus' => Url::fromUri('http://disqus.com/')->toString(),
       )) . '</p>';
       $output .= '<h3>' . t('Installation') . '</h3>';
-      $output .= '<ol><li>' . t('Register your site information at <a href=":disqus">Disqus</a>.', array(':disqus' => URL::fromUri('http://disqus.com/')->toString())) . '</li>';
+      $output .= '<ol><li>' . t('Register your site information at <a href=":disqus">Disqus</a>.', array(':disqus' => Url::fromUri('http://disqus.com/')->toString())) . '</li>';
       $output .= '<li>' . t('In the <a href=":configuration">Disqus configuration</a>, set the domain to what you registered with Disqus.',
           array(':configuration' => Url::fromRoute('disqus.settings')->toString())) . '</li>';
       $output .= '<li>' . t('Disqus comments can be enabled for any <a href=":entity-help">entity sub-type</a> (for example, a <a href=":content-type">content type</a>). On the Manage fields page for each entity sub-type, you can enable disqus by adding a Disqus comments field.', array(
@@ -60,7 +60,7 @@ function disqus_help($route_name, RouteMatchInterface $route_match) {
 
     case 'disqus.settings':
       return '<p>' . t('The following provides the general configuration options for the <a href=":disqus">Disqus</a> comment web service.',
-          array(':disqus' => URL::fromUri('http://disqus.com')->toString())) . '</p>';
+          array(':disqus' => Url::fromUri('http://disqus.com')->toString())) . '</p>';
   }
 }
 
