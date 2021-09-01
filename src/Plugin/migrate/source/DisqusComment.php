@@ -16,7 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Disqus comment source using disqus-api.
  *
  * @MigrateSource(
- *   id = "disqus_source"
+ *   id = "disqus_source",
+ *   source_module = "disqus"
  * )
  */
 class DisqusComment extends SourcePluginBase implements ContainerFactoryPluginInterface {
