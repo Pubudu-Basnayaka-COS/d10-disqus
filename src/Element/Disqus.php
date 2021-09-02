@@ -73,7 +73,6 @@ class Disqus extends RenderElement {
       'url' => $url,
       'title' => $title,
       'identifier' => $identifier,
-      'disable_mobile' => $disqus_settings->get('behavior.disqus_disable_mobile'),
     ];
 
     // If the user is logged in, we can inject the username and email for

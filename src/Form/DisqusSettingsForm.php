@@ -118,15 +118,6 @@ class DisqusSettingsForm extends ConfigFormBase {
       '#description' => $this->t("When enabled and a user is logged in, the Disqus 'Post as Guest' login form will be pre-filled with the user's name and email address."),
       '#default_value' => $disqus_config->get('behavior.disqus_inherit_login'),
     ];
-    $form['behavior']['disqus_disable_mobile'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Disable mobile optimized version'),
-      '#description' => $this->t(
-        'When enabled, uses the <a href=":url">disqus_disable_mobile</a> flag to tell Disqus service to never use the mobile optimized version of Disqus.',
-        [':url' => 'http://docs.disqus.com/help/2/']
-      ),
-      '#default_value' => $disqus_config->get('behavior.disqus_disable_mobile'),
-    ];
     $form['behavior']['disqus_track_newcomment_ga'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Track new comments in Google Analytics'),
@@ -278,7 +269,6 @@ class DisqusSettingsForm extends ConfigFormBase {
       ->set('disqus_domain', $form_state->getValue('disqus_domain'))
       ->set('behavior.disqus_localization', $form_state->getValue('disqus_localization'))
       ->set('behavior.disqus_inherit_login', $form_state->getValue('disqus_inherit_login'))
-      ->set('behavior.disqus_disable_mobile', $form_state->getValue('disqus_disable_mobile'))
       ->set('behavior.disqus_track_newcomment_ga', $form_state->getValue('disqus_track_newcomment_ga'))
       ->set('advanced.disqus_useraccesstoken', $form_state->getValue('disqus_useraccesstoken'))
       ->set('advanced.disqus_publickey', $form_state->getValue('disqus_publickey'))
