@@ -23,7 +23,8 @@ class DisqusController extends ControllerBase {
     $build['#attached']['html_head'][] = [[
       '#tag' => 'script',
       '#value' => 'window.close();',
-    ], 'disqus_js'];
+    ], 'disqus_js',
+    ];
     return $build;
   }
 

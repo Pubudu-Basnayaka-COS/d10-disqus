@@ -15,7 +15,7 @@ class Disqus extends RenderElement {
    * {@inheritdoc}
    */
   public function getInfo() {
-    return array(
+    return [
       '#title' => '',
       '#url' => '',
       '#identifier' => '',
@@ -24,7 +24,7 @@ class Disqus extends RenderElement {
       '#pre_render' => [
         get_class() . '::generatePlaceholder',
       ],
-    );
+    ];
   }
 
   /**

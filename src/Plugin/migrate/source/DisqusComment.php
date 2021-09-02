@@ -151,7 +151,7 @@ class DisqusComment extends SourcePluginBase implements ContainerFactoryPluginIn
         $posts = $disqus->forums->listPosts(['forum' => $this->config->get('disqus_domain')]);
       }
       catch (\Exception $exception) {
-        $this->messenger()->addMessage(
+        $this->messenger()->addMessage($this->
           t('There was an error loading the forum details. Please check you API keys and try again.'),
           MessengerInterface::TYPE_ERROR
         );
@@ -163,7 +163,7 @@ class DisqusComment extends SourcePluginBase implements ContainerFactoryPluginIn
         $id = $post->id;
         $items[$id]['id'] = $id;
         $items[$id]['pid'] = $post->parent;
-        $thread = $disqus->threads->details(array('thread' => $post->thread));
+        $thread = $disqus->threads->details(['thread' => $post->thread]);
         $items[$id]['identifier'] = $thread->identifier;
         $items[$id]['name'] = $post->author->name;
         $items[$id]['email'] = $post->author->email;

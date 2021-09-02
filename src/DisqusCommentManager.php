@@ -100,7 +100,7 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
     $disqus['sso'] = [
       'name' => \Drupal::config('system.site')->get('name'),
       // The login window must be closed once the user logs in.
-      'url' => Url::fromRoute('user.login', [], ['query' => array('destination' => Url::fromRoute('disqus.close_window')->toString()), 'absolute' => TRUE])->toString(),
+      'url' => Url::fromRoute('user.login', [], ['query' => ['destination' => Url::fromRoute('disqus.close_window')->toString()], 'absolute' => TRUE])->toString(),
       // The logout link must redirect back to the original page.
       'logout' => Url::fromRoute('user.logout', [], ['query' => ['destination' => Url::fromRoute('<current>')->toString()], 'absolute' => TRUE])->toString(),
       'width' => 800,
@@ -133,12 +133,12 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
    * Assembles the full private key for use in SSO authentication.
    *
    * @param array $data
-   *    An array contating data.
+   *   An array contating data.
    *
    * @return string
-   *    The String containing message, timestamp.
+   *   The String containing message, timestamp.
    */
-  protected function ssoKeyEncode($data) {
+  protected function ssoKeyEncode(array $data) {
     // Encode the data to be sent off to Disqus.
     $message = base64_encode(json_encode($data));
     $timestamp = time();
@@ -151,7 +151,7 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
    * Assembles user-specific data used by Disqus SSO.
    *
    * @return array
-   *    An array containing sso user data.
+   *   An array containing sso user data.
    */
   protected function ssoUserData() {
     $account = $this->currentUser;

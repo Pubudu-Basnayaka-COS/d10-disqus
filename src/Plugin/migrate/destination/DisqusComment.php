@@ -5,9 +5,9 @@ namespace Drupal\disqus\Plugin\migrate\destination;
 use Drupal\migrate\Plugin\migrate\destination\DestinationBase;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -48,7 +48,7 @@ class DisqusComment extends DestinationBase implements ContainerFactoryPluginInt
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, LoggerChannelInterface $logger, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, LoggerInterface $logger, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
     $this->logger = $logger;
     $this->config = $config_factory->get('disqus.settings');

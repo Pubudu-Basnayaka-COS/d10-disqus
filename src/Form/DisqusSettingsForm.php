@@ -89,7 +89,7 @@ class DisqusSettingsForm extends ConfigFormBase {
 
     $form['disqus_domain'] = [
       '#type' => 'textfield',
-      '#title' => t('Shortname'),
+      '#title' => $this->t('Shortname'),
       '#description' => $this->t('The website shortname that you registered Disqus with. If you registered http://example.disqus.com, you would enter "example" here.'),
       '#default_value' => $disqus_config->get('disqus_domain'),
     ];
@@ -286,7 +286,7 @@ class DisqusSettingsForm extends ConfigFormBase {
     }
 
     $old_logo = $config->get('advanced.sso.disqus_logo');
-    $new_logo = (!$form_state->isValueEmpty('disqus_logo')) ? $form_state->getValue(array('disqus_logo', 0)) : '';
+    $new_logo = (!$form_state->isValueEmpty('disqus_logo')) ? $form_state->getValue(['disqus_logo', 0]) : '';
 
     // Ignore if the file hasn't changed.
     if ($new_logo != $old_logo) {

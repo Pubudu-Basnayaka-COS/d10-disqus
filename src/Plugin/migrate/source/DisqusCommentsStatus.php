@@ -74,7 +74,6 @@ class DisqusCommentsStatus extends DrupalSqlBase {
    */
   public function prepareRow(Row $row) {
     parent::prepareRow($row);
-    $status = $row->getSourceProperty('status');
     $nid = $row->getSourceProperty('nid');
     $row->setSourceProperty('identifier', 'node/' . $nid);
   }
