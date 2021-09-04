@@ -5,7 +5,7 @@ disqus.settings:
   label: 'Disqus Settings'
   mapping:
     disqus_domain:
-      type: string
+      type: text
       label: 'Shortname'
     behavior:
       type: mapping
@@ -25,13 +25,13 @@ disqus.settings:
       label: 'Advanced'
       mapping:
         disqus_useraccesstoken:
-          type: string
+          type: text
           label: 'User Access Token'
         disqus_publickey:
-          type: string
+          type: text
           label: 'Public Key'
         disqus_secretkey:
-          type: string
+          type: text
           label: 'Secret Key'
         api:
           type: mapping
