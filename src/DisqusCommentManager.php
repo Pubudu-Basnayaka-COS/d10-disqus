@@ -2,6 +2,7 @@
 
 namespace Drupal\disqus;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -9,6 +10,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\user\Entity\User;
+
 
 /**
  * It contains common functions to manage disqus_comment fields.
@@ -113,7 +115,11 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
       $disqus['sso']['button'] = File::load($managed_logo)->url();
     }
     elseif ($logo = theme_get_setting('logo')) {
-      $disqus['sso']['button'] = $logo['url'];
+      $url = $logo['url'];
+      if (!UrlHelper::isExternal($url)) {
+        $url = Url::fromUri('internal:' . $url, ['absolute' => TRUE])->toString();
+      }
+      $disqus['sso']['button'] = $url;
     }
     else {
       $disqus['sso']['button'] = Url::fromUri('base://core/misc/druplicon.png', ['absolute' => TRUE])->toString();
