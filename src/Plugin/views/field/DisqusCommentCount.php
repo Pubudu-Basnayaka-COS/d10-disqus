@@ -99,7 +99,7 @@ class DisqusCommentCount extends FieldPluginBase {
         'attributes' => [
           // Identify the node for Disqus with the unique identifier:
           // http://docs.disqus.com/developers/universal/#comment-count
-          'data-disqus-identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}",
+          'data-disqus-identifier' => $entity->get(key($field))->identifier ?: "{$entity->getEntityTypeId()}/{$entity->id()}",
         ],
       ];
       $content = [
