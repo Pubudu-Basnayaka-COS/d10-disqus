@@ -182,7 +182,7 @@ class DisqusComment extends DestinationBase implements ContainerFactoryPluginInt
         ]);
       }
       catch (\Exception $exception) {
-        $this->logger->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => $identifier]);
+        $this->logger->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => $destination_identifier['disqus_id']]);
         $post = NULL;
       }
       if (!isset($post->id)) {

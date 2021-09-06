@@ -10,22 +10,8 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\disqus\DisqusCommentManagerInterface;
 use Drupal\field\FieldStorageConfigInterface;
-
-/**
- * API No action on entity delete.
- */
-define('DISQUS_API_NO_ACTION', 0);
-
-/**
- * API Close on entity delete.
- */
-define('DISQUS_API_CLOSE', 1);
-
-/**
- * API Remove on entity delete.
- */
-define('DISQUS_API_REMOVE', 2);
 
 /**
  * Implements hook_help().
@@ -124,7 +110,7 @@ function disqus_entity_delete(EntityInterface $entity) {
   $config = \Drupal::config('disqus.settings');
   // Close/remove the thread on disqus if required.
   $action = $config->get('advanced.api.disqus_api_delete');
-  if ($action != DISQUS_API_NO_ACTION) {
+  if ($action != DisqusCommentManagerInterface::DISQUS_API_NO_ACTION) {
     $disqus = disqus_api();
     if ($disqus) {
       try {
@@ -143,7 +129,7 @@ function disqus_entity_delete(EntityInterface $entity) {
           ->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
       }
       if (isset($thread->id)) {
-        if ($action == DISQUS_API_CLOSE) {
+        if ($action == DisqusCommentManagerInterface::DISQUS_API_CLOSE) {
           try {
             $disqus->threads->close([
               'access_token' => $config->get('advanced.disqus_useraccesstoken'),
@@ -157,7 +143,7 @@ function disqus_entity_delete(EntityInterface $entity) {
               ->error('Error closing thread for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
           }
         }
-        if ($action == DISQUS_API_REMOVE) {
+        if ($action == DisqusCommentManagerInterface::DISQUS_API_REMOVE) {
           try {
             $disqus->threads->remove([
               'access_token' => $config->get('advanced.disqus_useraccesstoken'),

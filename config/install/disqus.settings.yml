@@ -9,7 +9,7 @@ advanced:
   disqus_secretkey: ''
   api:
     disqus_api_update: false
-    disqus_api_delete: 'DISQUS_API_NO_ACTION'
+    disqus_api_delete: '0'
   sso:
     disqus_sso: false
     disqus_use_site_logo: false
