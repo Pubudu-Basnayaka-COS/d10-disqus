@@ -11,7 +11,6 @@ use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\user\Entity\User;
 
-
 /**
  * It contains common functions to manage disqus_comment fields.
  */

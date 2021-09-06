@@ -90,8 +90,8 @@ class DisqusFormatter extends FormatterBase implements ContainerFactoryPluginInt
       ];
       $node = $items->getEntity();
       if (!$node->isNew() || !$node->in_preview) {
-        $element[0] += ['#url' => $node->toUrl('canonical', ['absolute' => TRUE])->toString(),];
-        $element[0] += ['#identifier' => $items->identifier ?: "{$node->getEntityTypeId()}/{$node->id()}",];
+        $element[0] += ['#url' => $node->toUrl('canonical', ['absolute' => TRUE])->toString()];
+        $element[0] += ['#identifier' => $items->identifier ?: "{$node->getEntityTypeId()}/{$node->id()}"];
       }
     }
 

@@ -151,8 +151,8 @@ class DisqusComment extends SourcePluginBase implements ContainerFactoryPluginIn
         $posts = $disqus->forums->listPosts(['forum' => $this->config->get('disqus_domain')]);
       }
       catch (\Exception $exception) {
-        $this->messenger()->addMessage($this->
-          t('There was an error loading the forum details. Please check you API keys and try again.'),
+        $this->messenger()->addMessage($this
+          ->t('There was an error loading the forum details. Please check you API keys and try again.'),
           MessengerInterface::TYPE_ERROR
         );
         $this->logger->error('Error loading the Disqus PHP API. Check your forum name.', []);
