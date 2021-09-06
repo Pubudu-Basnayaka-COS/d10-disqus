@@ -159,7 +159,7 @@ class DisqusComment extends DestinationBase implements ContainerFactoryPluginInt
             'author_email' => $author_email,
             'author_url' => $author_url,
             'api_key' => $this->config->get('advanced.disqus_publickey'),
-          ));
+          ])];
         }
         return $ids;
       }
