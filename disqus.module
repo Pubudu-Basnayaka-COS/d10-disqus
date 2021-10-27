@@ -181,7 +181,7 @@ function disqus_entity_update(EntityInterface $entity) {
 
   $config = \Drupal::config('disqus.settings');
   // Update the thread information on disqus if required.
-  if ($config->get('advanced.api.disqus_api_update') && ($entity->label() != $entity->original->label() || $entity->toUrl() != $entity->original->url())) {
+  if ($config->get('advanced.api.disqus_api_update') && ($entity->label() != $entity->original->label() || $entity->toUrl()->toString() != $entity->original->toUrl()->toString())) {
     $disqus = disqus_api();
     if ($disqus) {
       try {
