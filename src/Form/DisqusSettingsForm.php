@@ -2,13 +2,14 @@
 
 namespace Drupal\disqus\Form;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\ConfigFormBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\disqus\DisqusCommentManagerInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides Disqus settings form.
@@ -188,9 +189,9 @@ class DisqusSettingsForm extends ConfigFormBase {
         '#description' => $this->t('Action to take when deleting a node. (Requires your user access token.)'),
         '#default_value' => $disqus_config->get('advanced.api.disqus_api_delete'),
         '#options' => [
-          DISQUS_API_NO_ACTION => $this->t('No Action'),
-          DISQUS_API_CLOSE => $this->t('Close Thread'),
-          DISQUS_API_REMOVE => $this->t('Remove Thread'),
+          DisqusCommentManagerInterface::DISQUS_API_NO_ACTION => $this->t('No Action'),
+          DisqusCommentManagerInterface::DISQUS_API_CLOSE => $this->t('Close Thread'),
+          DisqusCommentManagerInterface::DISQUS_API_REMOVE => $this->t('Remove Thread'),
         ],
         '#states' => [
           'enabled' => [

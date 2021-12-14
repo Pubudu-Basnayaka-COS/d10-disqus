@@ -152,14 +152,16 @@ class DisqusComment extends DestinationBase implements ContainerFactoryPluginInt
         else {
           // Cannot create comment as anonymous user, needs 'api_key'
           // (api_key is not the public key).
-          $ids = ['disqus_id' => $disqus->posts->create([
-            'thread' => $thread->id,
-            'message' => $message,
-            'author_name' => $author_name,
-            'author_email' => $author_email,
-            'author_url' => $author_url,
-            'api_key' => $this->config->get('advanced.disqus_publickey'),
-          ])];
+          $ids = [
+            'disqus_id' => $disqus->posts->create([
+              'thread' => $thread->id,
+              'message' => $message,
+              'author_name' => $author_name,
+              'author_email' => $author_email,
+              'author_url' => $author_url,
+              'api_key' => $this->config->get('advanced.disqus_publickey'),
+            ]),
+          ];
         }
         return $ids;
       }

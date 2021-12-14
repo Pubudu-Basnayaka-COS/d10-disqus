@@ -253,7 +253,7 @@ function disqus_theme() {
 /**
  * Creates an instance of the Disqus PHP API.
  *
- * @return object
+ * @return object|bool
  *   The instance of the Disqus API.
  */
 function disqus_api() {

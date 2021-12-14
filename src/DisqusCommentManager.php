@@ -9,8 +9,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Url;
-use Drupal\file\Entity\File;
-use Drupal\user\Entity\User;
 
 /**
  * It contains common functions to manage disqus_comment fields.
@@ -122,7 +120,7 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
     $managed_logo = $this->configFactory->get('disqus.settings')->get('advanced.sso.disqus_logo');
     $use_site_logo = $this->configFactory->get('disqus.settings')->get('advanced.sso.disqus_use_site_logo');
     if (!$use_site_logo && !empty($managed_logo)) {
-      $disqus['sso']['button'] = $this->entityTypeManager->getStorage('file')->load($managed_logo)->url();
+      $disqus['sso']['button'] = $this->entityTypeManager->getStorage('file')->load($managed_logo)->toUrl();
     }
     elseif ($logo = theme_get_setting('logo')) {
       $url = $logo['url'];
