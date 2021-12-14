@@ -269,10 +269,3 @@ function disqus_api() {
   }
   return $disqus;
 }
-
-/**
- * Implements hook_views_api().
- */
-function disqus_views_api() {
-  return ['api' => 3];
-}
