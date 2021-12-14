@@ -70,7 +70,7 @@ function disqus_node_links_alter(array &$node_links, NodeInterface $node, array 
             'attributes' => [
               // Identify the node for Disqus with the unique identifier:
               // http://docs.disqus.com/developers/universal/#comment-count
-              'data-disqus-identifier' => 'node/' . $node->id(),
+              'data-disqus-identifier' => $node->get($field_name)->identifier ?: 'node/' . $node->id(),
             ],
           ];
         }
@@ -102,7 +102,8 @@ function disqus_entity_delete(EntityInterface $entity) {
 
   $field = \Drupal::service('disqus.manager')
     ->getFields($entity->getEntityTypeId());
-  if (!$entity->hasField(key($field))) {
+  $field_name = key($field);
+  if (!$entity->hasField($field_name)) {
     return;
   }
   $messenger = \Drupal::messenger();
@@ -119,14 +120,14 @@ function disqus_entity_delete(EntityInterface $entity) {
         // fix this issue.
         $thread = $disqus->threads->details([
           'forum' => $config->get('disqus_domain'),
-          'thread:ident' => "{$entity->getEntityTypeId()}/{$entity->id()}",
+          'thread:ident' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}",
           'thread' => '1',
         ]);
       }
       catch (Exception $exception) {
         $messenger->addError(t('There was an error loading the thread details from Disqus.'));
         \Drupal::logger('disqus')
-          ->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
+          ->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}"]);
       }
       if (isset($thread->id)) {
         if ($action == DisqusCommentManagerInterface::DISQUS_API_CLOSE) {
@@ -140,7 +141,7 @@ function disqus_entity_delete(EntityInterface $entity) {
           catch (Exception $exception) {
             $messenger->addError(t('There was an error closing the thread on Disqus.'));
             \Drupal::logger('disqus')
-              ->error('Error closing thread for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
+              ->error('Error closing thread for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}"]);
           }
         }
         if ($action == DisqusCommentManagerInterface::DISQUS_API_REMOVE) {
@@ -154,7 +155,7 @@ function disqus_entity_delete(EntityInterface $entity) {
           catch (Exception $exception) {
             $messenger->addError(t('There was an error removing the thread on Disqus.'));
             \Drupal::logger('disqus')
-              ->error('Error closing thread for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
+              ->error('Error closing thread for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}"]);
           }
         }
       }
@@ -173,6 +174,7 @@ function disqus_entity_update(EntityInterface $entity) {
 
   $field = \Drupal::service('disqus.manager')
     ->getFields($entity->getEntityTypeId());
+  $field_name = key($field);
   if (!$entity->hasField(key($field))) {
     return;
   }
@@ -190,14 +192,14 @@ function disqus_entity_update(EntityInterface $entity) {
         // fix this issue.
         $thread = $disqus->threads->details([
           'forum' => $config->get('disqus_domain'),
-          'thread:ident' => "{$entity->getEntityTypeId()}/{$entity->id()}",
+          'thread:ident' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}",
           'thread' => '1',
         ]);
       }
       catch (Exception $exception) {
         $messenger->addError(t('There was an error loading the thread details from Disqus.'));
         \Drupal::logger('disqus')
-          ->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
+          ->error('Error loading thread details for entity : @identifier. Check your API keys.', ['@identifier' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}"]);
       }
       if (isset($thread->id)) {
         try {
@@ -212,7 +214,7 @@ function disqus_entity_update(EntityInterface $entity) {
         catch (Exception $exception) {
           $messenger->addError(t('There was an error updating the thread details on Disqus.'));
           \Drupal::logger('disqus')
-            ->error('Error updating thread details for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"]);
+            ->error('Error updating thread details for entity : @identifier. Check your user access token.', ['@identifier' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}"]);
         }
       }
     }

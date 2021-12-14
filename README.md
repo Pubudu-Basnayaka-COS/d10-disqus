@@ -106,7 +106,7 @@ https://github.com/disqus/disqus-php/blob/master/README.rst
         \Drupal::logger('disqus')->error('Error updating thread details for
         entity : !identifier. Check your user access token.',
         array(
-         '!identifier' => "{$entity->getEntityTypeId()}/{$entity->id()}"
+         '!identifier' => "{$entity->get($field_name)->identifier}" ?: "{$entity->getEntityTypeId()}/{$entity->id()}"
         ));
       }
     }
