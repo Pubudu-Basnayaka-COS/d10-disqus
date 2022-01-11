@@ -120,7 +120,7 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
     $managed_logo = $this->configFactory->get('disqus.settings')->get('advanced.sso.disqus_logo');
     $use_site_logo = $this->configFactory->get('disqus.settings')->get('advanced.sso.disqus_use_site_logo');
     if (!$use_site_logo && !empty($managed_logo)) {
-      $disqus['sso']['button'] = $this->entityTypeManager->getStorage('file')->load($managed_logo)->toUrl();
+      $disqus['sso']['button'] = $this->entityTypeManager->getStorage('file')->load($managed_logo)->createFileUrl();
     }
     elseif ($logo = theme_get_setting('logo')) {
       $url = $logo['url'];
