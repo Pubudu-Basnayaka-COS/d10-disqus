@@ -20,6 +20,9 @@ disqus.settings:
         disqus_track_newcomment_ga:
           type: boolean
           label: 'Track new comments in Google Analytics'
+        disqus_notify_newcomment:
+          type: boolean
+          label: 'Notify of new comments by email'
     advanced:
       type: mapping
       label: 'Advanced'

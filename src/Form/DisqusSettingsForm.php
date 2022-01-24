@@ -128,6 +128,18 @@ class DisqusSettingsForm extends ConfigFormBase {
       ),
       '#default_value' => $disqus_config->get('behavior.disqus_track_newcomment_ga'),
     ];
+    $form['behavior']['disqus_notify_newcomment'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Notify authors of new comments'),
+      '#description' => $this->t('When enabled, a notification email will be sent to the author of a post when a new comment is added. This will work only if you have a secret key set in the advanced section.'),
+      '#default_value' => $disqus_config->get('behavior.disqus_notify_newcomment'),
+      '#states' => [
+        'visible' => [
+          'input[name="disqus_publickey"]' => ['empty' => FALSE],
+          'input[name="disqus_secretkey"]' => ['empty' => FALSE],
+        ],
+      ],
+    ];
 
     // Advanced settings.
     $form['advanced'] = [
@@ -271,6 +283,7 @@ class DisqusSettingsForm extends ConfigFormBase {
       ->set('behavior.disqus_localization', $form_state->getValue('disqus_localization'))
       ->set('behavior.disqus_inherit_login', $form_state->getValue('disqus_inherit_login'))
       ->set('behavior.disqus_track_newcomment_ga', $form_state->getValue('disqus_track_newcomment_ga'))
+      ->set('behavior.disqus_notify_newcomment', $form_state->getValue('disqus_notify_newcomment'))
       ->set('advanced.disqus_useraccesstoken', $form_state->getValue('disqus_useraccesstoken'))
       ->set('advanced.disqus_publickey', $form_state->getValue('disqus_publickey'))
       ->set('advanced.disqus_secretkey', $form_state->getValue('disqus_secretkey'))

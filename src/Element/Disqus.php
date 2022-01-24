@@ -120,6 +120,14 @@ class Disqus extends RenderElement {
       // Attach the js with the callback implementation.
       $element['#attached']['library'][] = 'disqus/ga';
     }
+    // Check if we want to notify of new comments. This can only work if a
+    // secret key has been set for API requests.
+    if ($disqus_settings->get('advanced.disqus_secretkey') && $disqus_settings->get('behavior.disqus_notify_newcomment')) {
+      // Add a callback when a new comment is posted.
+      $disqus['callbacks']['onNewComment'][] = 'Drupal.disqus.disqusNotifyNewComment';
+      // Attach the js with the callback implementation.
+      $element['#attached']['library'][] = 'disqus/notification';
+    }
     // Add the disqus.js and all the settings to process the JavaScript and load
     // Disqus.
     $element['#attached']['library'][] = 'disqus/disqus';

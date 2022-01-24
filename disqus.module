@@ -222,6 +222,25 @@ function disqus_entity_update(EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_mail().
+ */
+function disqus_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'new_comment':
+      $post = $params['post'];
+      $message['subject'] = t('New comment posted to @title', ['@title' => $post->thread->title]);
+      $message['body'] = [
+        t('New comment posted on :url by @author:', [
+          ':url' => $post->url,
+          '@author' => $post->author->name,
+        ]),
+        $post->raw_message,
+      ];
+      break;
+  }
+}
+
+/**
  * Implements hook_field_views_data().
  */
 function disqus_field_views_data(FieldStorageConfigInterface $field_storage) {
