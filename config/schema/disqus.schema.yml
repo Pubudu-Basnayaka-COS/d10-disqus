@@ -1,7 +1,7 @@
 # Schema for the configuration files of the disqus module.
 
 disqus.settings:
-  type: mapping
+  type: config_object
   label: 'Disqus Settings'
   mapping:
     disqus_domain:
@@ -9,7 +9,7 @@ disqus.settings:
       label: 'Shortname'
     behavior:
       type: mapping
-      label: "Behavior"
+      label: 'Behavior'
       mapping:
         disqus_localization:
           type: boolean
@@ -59,3 +59,14 @@ disqus.settings:
             disqus_logo:
               type: uri
               label: 'Custom Logo'
+
+field.value.disqus_comment:
+  type: mapping
+  label: 'Disqus field values'
+  mapping:
+    status:
+      type: boolean
+      label: 'Disqus comments should be shown'
+    identifier:
+      type: string
+      label: 'Identifier of the Disqus discussion'

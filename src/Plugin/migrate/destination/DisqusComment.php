@@ -166,7 +166,10 @@ class DisqusComment extends DestinationBase implements ContainerFactoryPluginInt
         return $ids;
       }
       catch (\Exception $exception) {
-        $this->logger->error('Error creating post on thread @thread, error: @error', ['@thread' => $thread->id, '@error' => $exception->getMessage()]);
+        $this->logger->error('Error creating post on thread @thread, error: @error', [
+          '@thread' => $thread->id,
+          '@error' => $exception->getMessage(),
+        ]);
       }
       return FALSE;
     }

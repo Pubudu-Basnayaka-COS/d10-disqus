@@ -97,7 +97,6 @@ class DisqusSettingsForm extends ConfigFormBase {
 
     $form['settings'] = [
       '#type' => 'vertical_tabs',
-      '#attached' => ['library' => ['disqus/disqus.settings']],
       '#weight' => 50,
     ];
 
@@ -300,7 +299,10 @@ class DisqusSettingsForm extends ConfigFormBase {
     }
 
     $old_logo = $config->get('advanced.sso.disqus_logo');
-    $new_logo = (!$form_state->isValueEmpty('disqus_logo')) ? $form_state->getValue(['disqus_logo', 0]) : '';
+    $new_logo = (!$form_state->isValueEmpty('disqus_logo')) ? $form_state->getValue([
+      'disqus_logo',
+      0,
+    ]) : '';
 
     // Ignore if the file hasn't changed.
     if ($new_logo != $old_logo) {

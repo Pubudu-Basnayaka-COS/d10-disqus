@@ -110,9 +110,21 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
     $disqus['sso'] = [
       'name' => $this->configFactory->get('system.site')->get('name'),
       // The login window must be closed once the user logs in.
-      'url' => Url::fromRoute('user.login', [], ['query' => ['destination' => Url::fromRoute('disqus.close_window')->toString()], 'absolute' => TRUE])->toString(),
+      'url' => Url::fromRoute('user.login', [], [
+        'query' => [
+          'destination' => Url::fromRoute('disqus.close_window')->toString(),
+        ],
+        'absolute' => TRUE,
+      ]
+      )->toString(),
       // The logout link must redirect back to the original page.
-      'logout' => Url::fromRoute('user.logout', [], ['query' => ['destination' => Url::fromRoute('<current>')->toString()], 'absolute' => TRUE])->toString(),
+      'logout' => Url::fromRoute('user.logout', [], [
+        'query' => [
+          'destination' => Url::fromRoute('<current>')->toString(),
+        ],
+        'absolute' => TRUE,
+      ]
+      )->toString(),
       'width' => 800,
       'height' => 600,
     ];
