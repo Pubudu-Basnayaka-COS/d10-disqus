@@ -189,7 +189,7 @@ class DisqusCommentManager implements DisqusCommentManagerInterface {
         $data['avatar'] = !empty($file_uri) ? $file_uri : NULL;
       }
       if (isset($data['avatar'])) {
-        $data['avatar'] = file_create_url($data['avatar']);
+        $data['avatar'] = \Drupal::service('file_url_generator')->generateAbsoluteString($data['avatar']);
       }
     }
     $this->moduleHandler->alter('disqus_user_data', $data);
